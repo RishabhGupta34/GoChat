@@ -1,0 +1,10 @@
+{
+    "host": "localhost",
+    "telport": "8080",
+    "apiport": "8081",
+    "error-log": "/Users/r0g03iz/Desktop/src/GoChat/Logs/error.log",
+    "msg-log": "/Users/r0g03iz/Desktop/src/GoChat/Logs/message.log",
+    "channel-data": "/Users/r0g03iz/Desktop/src/GoChat/Channel_data",
+    "logs": "/Users/r0g03iz/Desktop/src/GoChat/Logs",
+    "act-log": "/Users/r0g03iz/Desktop/src/GoChat/Logs/activity.log"
+}

@@ -1,0 +1,100 @@
+channel.go:19: Activity: Channel creation PUBLIC
+				Name: all
+				By: Admin
+				Time: 2020-03-10 15:49:33
+
+user.go:59: Activity: New User
+				Name: testuser
+				By: testuser
+				Time: 2020-03-10 15:49:33
+
+channel.go:68: Activity: Join Channel
+				Name: all
+				By: testuser
+				Time: 2020-03-10 15:49:33
+
+user.go:59: Activity: New User
+				Name: testuser2
+				By: testuser2
+				Time: 2020-03-10 15:49:34
+
+channel.go:68: Activity: Join Channel
+				Name: all
+				By: testuser2
+				Time: 2020-03-10 15:49:34
+
+channel.go:43: Activity: Channel creation PUBLIC
+				Name: gen
+				By: testuser
+				Time: 2020-03-10 15:49:34
+
+channel.go:43: Activity: Channel creation PRIVATE
+				Name: tech
+				By: testuser
+				Time: 2020-03-10 15:49:34
+
+channel.go:97: Activity: Leave Channel
+				Name: tech
+				By: testuser
+				Time: 2020-03-10 15:49:35
+
+channel.go:97: Activity: Leave Channel
+				Name: gen
+				By: testuser
+				Time: 2020-03-10 15:49:35
+
+channel.go:68: Activity: Join Channel
+				Name: tech
+				By: testuser
+				Time: 2020-03-10 15:49:36
+
+sendmsg.go:55: Activity: Send Message(Channel)
+				Name: all
+				By: testuser
+				Time: 2020-03-10 15:49:36
+
+blockuser.go:29: Activity: Block User
+				Name: testuser
+				By: testuser2
+				Time: 2020-03-10 15:49:36
+
+sendmsg.go:55: Activity: Send Message(Channel)
+				Name: all
+				By: testuser
+				Time: 2020-03-10 15:49:36
+
+blockuser.go:29: Activity: Block User
+				Name: testuser2
+				By: testuser
+				Time: 2020-03-10 15:49:37
+
+blockuser.go:50: Activity: Un-Block User
+				Name: testuser2
+				By: testuser
+				Time: 2020-03-10 15:49:37
+
+blockuser.go:50: Activity: Un-Block User
+				Name: testuser
+				By: testuser2
+				Time: 2020-03-10 15:49:38
+
+sendmsg.go:91: Activity: Send Message(User)
+				Name: testuser2
+				By: testuser
+				Time: 2020-03-10 15:49:38
+
+sendmsg.go:28: Activity: Send Message(Channel)
+				Name: tech
+				By: API
+				Time: 2020-03-10 15:49:38
+
+blockuser.go:29: Activity: Block User
+				Name: testuser
+				By: testuser2
+				Time: 2020-03-10 15:49:38
+
+user.go:31: Activity: Delete User
+				Name: testuser
+				By: testuser
+				Time: 2020-03-10 15:49:38
+

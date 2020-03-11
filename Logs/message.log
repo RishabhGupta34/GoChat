@@ -1,0 +1,20 @@
+sendmsg.go:56: ToChannel:- all
+				Sender:- testuser
+				Message:- hello 
+				Time:- 2020-03-10 15:49:36
+
+sendmsg.go:56: ToChannel:- all
+				Sender:- testuser
+				Message:- hello 
+				Time:- 2020-03-10 15:49:36
+
+sendmsg.go:92: ToUser:- testuser2
+				Sender:- testuser
+				Message:- hello 
+				Time:- 2020-03-10 15:49:38
+
+sendmsg.go:29: ToChannel:- tech
+				Sender:- API
+				Message:- Hello Hi 
+				Time:- 2020-03-10 15:49:38
+
