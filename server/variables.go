@@ -5,8 +5,11 @@ package server
 import (
 	"log"
 	"net"
+	"os"
 	"sync"
 	"time"
+
+	"github.com/fatih/color"
 )
 
 // Config is This struct saves the configuration of the chat server
@@ -44,12 +47,14 @@ type DataAPI struct {
 
 // Channels is Saves the channel information
 type Channels struct {
-	Name      string               // Name of the channel
-	Creator   string               // Creator(Username) of the channel
-	CreatedAt time.Time            // Time of creation of the channel
-	UserList  map[string]*net.Conn // Mapping of usernames(that are in this channel) to their network connection
-	Access    string               // Type of channel, can be public or private
-	Key       string               // If channel is private this unique key is used to join the channel
+	Name               string               // Name of the channel
+	Creator            string               // Creator(Username) of the channel
+	CreatedAt          time.Time            // Time of creation of the channel
+	UserList           map[string]*net.Conn // Mapping of usernames(that are in this channel) to their network connection
+	Access             string               // Type of channel, can be public or private
+	Key                string               // If channel is private this unique key is used to join the channel
+	MessageHistChannel chan (*Data)         // Channel containing the message histories of this channel
+	Mu                 *sync.Mutex          // Mutex for Channel Message log
 }
 
 // Mutexes contains mutexes for the shared variables
@@ -71,15 +76,24 @@ type Variables struct {
 	 key -> specifying the username i.e whose blocklist is it.
 	value -> map containing all the blocked users of the "key" */
 
-	ChannelList map[string]Channels /* ChannelList is Contains list of all the channels
+	ChannelList map[string]*Channels /* ChannelList is Contains list of all the channels
 	Mapping from channel-name -> Channels struct(contain info about channel) */
 
-	Usernames     map[string]*net.Conn // Usernames is Saves all the used usernames
-	BlockListMu   *sync.Mutex          // Mutex for Blocklist
-	ChannelListMu *sync.Mutex          // Mutex for ChannelList
-	UsernamesMu   *sync.Mutex          // Mutex for Usernames
-	// Colors            map[string]func(...interface{}) string
+	Usernames           map[string]*net.Conn // Usernames is Saves all the used usernames
+	BlockListMu         sync.Mutex           // Mutex for Blocklist
+	ChannelListMu       sync.Mutex           // Mutex for ChannelList
+	UsernamesMu         sync.Mutex           // Mutex for Usernames
+	ErrorLogsChannel    chan (error)         // Channel containing the error logs
+	MessageLogsChannel  chan (string)        // Channel containing the message logs
+	ActivityLogsChannel chan (string)        // Channel containing the activity logs
+	SignalChannel       chan (os.Signal)	 // Channel for fetching the interrupt signals from os
 }
 
 // Colors is map containing different functions for coloring the text shown to the client
-var Colors map[string]func(...interface{}) string
+var Colors = map[string]func(...interface{}) string{
+	"Yellow": color.New(color.FgYellow, color.Bold).SprintFunc(),
+	"Blue":   color.New(color.FgBlue, color.Bold).SprintFunc(),
+	"Red":    color.New(color.FgRed, color.Bold).SprintFunc(),
+	"Green":  color.New(color.FgGreen, color.Bold).SprintFunc(),
+	"Cyan":   color.New(color.FgCyan, color.Bold).SprintFunc(),
+}

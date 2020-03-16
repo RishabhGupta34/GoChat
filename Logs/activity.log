@@ -1,100 +1,100 @@
-channel.go:19: Activity: Channel creation PUBLIC
+helper.go:44: Activity: Channel creation PUBLIC
 				Name: all
 				By: Admin
-				Time: 2020-03-10 15:49:33
+				Time: 2020-03-16 16:07:54
 
-user.go:59: Activity: New User
+helper.go:44: Activity: New User
 				Name: testuser
 				By: testuser
-				Time: 2020-03-10 15:49:33
+				Time: 2020-03-16 16:07:54
 
-channel.go:68: Activity: Join Channel
+helper.go:44: Activity: Join Channel
 				Name: all
 				By: testuser
-				Time: 2020-03-10 15:49:33
+				Time: 2020-03-16 16:07:54
 
-user.go:59: Activity: New User
+helper.go:44: Activity: New User
 				Name: testuser2
 				By: testuser2
-				Time: 2020-03-10 15:49:34
+				Time: 2020-03-16 16:07:54
 
-channel.go:68: Activity: Join Channel
+helper.go:44: Activity: Join Channel
 				Name: all
 				By: testuser2
-				Time: 2020-03-10 15:49:34
+				Time: 2020-03-16 16:07:54
 
-channel.go:43: Activity: Channel creation PUBLIC
+helper.go:44: Activity: Channel creation PUBLIC
 				Name: gen
 				By: testuser
-				Time: 2020-03-10 15:49:34
+				Time: 2020-03-16 16:07:55
 
-channel.go:43: Activity: Channel creation PRIVATE
+helper.go:44: Activity: Channel creation PRIVATE
 				Name: tech
 				By: testuser
-				Time: 2020-03-10 15:49:34
+				Time: 2020-03-16 16:07:55
 
-channel.go:97: Activity: Leave Channel
+helper.go:44: Activity: Leave Channel
 				Name: tech
 				By: testuser
-				Time: 2020-03-10 15:49:35
+				Time: 2020-03-16 16:07:55
 
-channel.go:97: Activity: Leave Channel
+helper.go:44: Activity: Leave Channel
 				Name: gen
 				By: testuser
-				Time: 2020-03-10 15:49:35
+				Time: 2020-03-16 16:07:56
 
-channel.go:68: Activity: Join Channel
+helper.go:44: Activity: Join Channel
 				Name: tech
 				By: testuser
-				Time: 2020-03-10 15:49:36
+				Time: 2020-03-16 16:07:56
 
-sendmsg.go:55: Activity: Send Message(Channel)
+helper.go:44: Activity: Send Message(Channel)
 				Name: all
 				By: testuser
-				Time: 2020-03-10 15:49:36
+				Time: 2020-03-16 16:07:57
 
-blockuser.go:29: Activity: Block User
+helper.go:44: Activity: Block User
 				Name: testuser
 				By: testuser2
-				Time: 2020-03-10 15:49:36
+				Time: 2020-03-16 16:07:57
 
-sendmsg.go:55: Activity: Send Message(Channel)
+helper.go:44: Activity: Send Message(Channel)
 				Name: all
 				By: testuser
-				Time: 2020-03-10 15:49:36
+				Time: 2020-03-16 16:07:57
 
-blockuser.go:29: Activity: Block User
+helper.go:44: Activity: Block User
 				Name: testuser2
 				By: testuser
-				Time: 2020-03-10 15:49:37
+				Time: 2020-03-16 16:07:58
 
-blockuser.go:50: Activity: Un-Block User
+helper.go:44: Activity: Un-Block User
 				Name: testuser2
 				By: testuser
-				Time: 2020-03-10 15:49:37
+				Time: 2020-03-16 16:07:58
 
-blockuser.go:50: Activity: Un-Block User
+helper.go:44: Activity: Un-Block User
 				Name: testuser
 				By: testuser2
-				Time: 2020-03-10 15:49:38
+				Time: 2020-03-16 16:07:59
 
-sendmsg.go:91: Activity: Send Message(User)
+helper.go:44: Activity: Send Message(User)
 				Name: testuser2
 				By: testuser
-				Time: 2020-03-10 15:49:38
+				Time: 2020-03-16 16:07:59
 
-sendmsg.go:28: Activity: Send Message(Channel)
+helper.go:44: Activity: Send Message(Channel)
 				Name: tech
 				By: API
-				Time: 2020-03-10 15:49:38
+				Time: 2020-03-16 16:07:59
 
-blockuser.go:29: Activity: Block User
+helper.go:44: Activity: Block User
 				Name: testuser
 				By: testuser2
-				Time: 2020-03-10 15:49:38
+				Time: 2020-03-16 16:07:59
 
-user.go:31: Activity: Delete User
+helper.go:44: Activity: Delete User
 				Name: testuser
 				By: testuser
-				Time: 2020-03-10 15:49:38
+				Time: 2020-03-16 16:07:59
 

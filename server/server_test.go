@@ -7,11 +7,12 @@ import (
 	"io/ioutil"
 	"net"
 	"net/http"
+	"os"
 	"strings"
 	"sync"
 	"testing"
 	"time"
-
+	"flag"
 	"github.com/acarl005/stripansi"
 	"github.com/gorilla/mux"
 )
@@ -20,6 +21,9 @@ var w1 sync.WaitGroup
 var w2 sync.WaitGroup
 var c1 *net.Conn
 var c2 *net.Conn
+var ServerVars *Variables = &Variables{}
+
+var cp = flag.String("configfile","","Full path for the config file")
 
 type data struct {
 	inp, exp, msg string
@@ -86,42 +90,56 @@ func Read(t *testing.T, conn *net.Conn) string {
 }
 
 func TestInit(t *testing.T) {
-	var ServerVars *Variables = &Variables{}
-	Initialise(ServerVars, 4, 3)
+	if len(*cp)==0{
+		t.Fatal("Please enter the full path for the server's config file")
+	}
+	
+	Initialise(ServerVars, *cp, "test") // test is for differentiating b/w main and test
+
 	w1.Add(1) // So that the func Test_init and the below go-routine completes before other test functions are executed
 	w2.Add(1) // For waiting the go-routine till the telnet server is online
+
 	go func(t *testing.T) {
 		w2.Wait() // For waiting the go-routine till the telnet server is online
 		defer w1.Done()
+
 		conn, err := net.Dial("tcp", "localhost:8000")
 		if err != nil {
 			t.Fatal(err)
 		}
-		c1 = &conn // Client1 with username: testuser
-		// go ReadA(t, con)
+
+		c1 = &conn      // Client1 with username: testuser
 		_ = Read(t, c1) // Reading client buffer
+
 		_, err = (*c1).Write([]byte("testuser\n"))
 		if err != nil {
 			t.Fatal(err)
 		}
+
 		time.Sleep(100 * time.Millisecond) // Sleep because the output from the server takes some time
 		_ = Read(t, c1)                    // Reading client buffer
+
 		c, err := net.Dial("tcp", "localhost:8000")
 		if err != nil {
 			t.Fatal(err)
 		}
-		c2 = &c                                // Client2 with username: testuser2
-		_ = Read(t, c2)                        // Reading client buffer
+
+		c2 = &c         // Client2 with username: testuser2
+		_ = Read(t, c2) // Reading client buffer
+
 		_, err = c.Write([]byte("testuser\n")) // For testing if same username is accepted or not
 		if err != nil {
 			t.Fatal(err)
 		}
+
 		time.Sleep(100 * time.Millisecond) // Sleep because the output from the server takes some time
 		_ = Read(t, c2)                    // Reading client buffer
+
 		_, err = c.Write([]byte("testuser2\n"))
 		if err != nil {
 			t.Fatal(err)
 		}
+
 		time.Sleep(100 * time.Millisecond) // Sleep because the output from the server takes some time
 		_ = Read(t, c2)                    // Reading client buffer
 	}(t)
@@ -130,6 +148,7 @@ func TestInit(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+
 	r := mux.NewRouter() // Multiplexer for handling the API calls
 	r.HandleFunc("/send", ServerVars.Send).Methods("POST")
 	r.HandleFunc("/history/{channel}/{key}", ServerVars.History).Methods("GET")
@@ -139,8 +158,10 @@ func TestInit(t *testing.T) {
 			t.Fatal(err)
 		}
 	}()
+
 	defer ln.Close()
 	w2.Done()
+
 	for i := 0; i < 2; i++ { // Because only 2 clients are connected to the server for testing
 		c, err := ln.Accept()
 		if err != nil {
@@ -231,12 +252,14 @@ func TestSendMsgC(t *testing.T) {
 	for _, tt := range tc {
 		WriteMatch(t, c1, tt.inp, tt.exp, tt.msg)
 	}
+
 	_ = Read(t, c2)
 	_, err := (*c2).Write([]byte("\\block testuser"))
 	if err != nil {
 		t.Fatal(err)
 	}
 	_ = Read(t, c2)
+
 	WriteMatch(t, c1, "\\sendc all hello\n", "Message \"hello\" sent", "Send message to a channel")
 }
 
@@ -278,10 +301,12 @@ func TestSendMsgU(t *testing.T) {
 	for _, tt := range tc {
 		WriteMatch(t, c1, tt.inp, tt.exp, tt.msg)
 	}
+
 	_, err := (*c2).Write([]byte("\\unblock testuser"))
 	if err != nil {
 		t.Fatal(err)
 	}
+
 	_ = Read(t, c2)
 	WriteMatch(t, c1, "\\sendu testuser2 hello\n", "Message \"hello\" sent", "Send Message User")
 	_ = Read(t, c2)
@@ -308,4 +333,5 @@ func TestDeleteUser(t *testing.T) {
 		t.Fatal(err)
 	}
 	WriteMatch(t, c1, "\\close", "Thanks for using GoChat testuser", "Closing connection")
+	ServerVars.SignalChannel <- os.Interrupt
 }

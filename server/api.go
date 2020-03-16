@@ -22,10 +22,12 @@ func (ServerVars *Variables) History(w http.ResponseWriter, r *http.Request) {
 // Send is Function for handling HTTP REST POST API calls
 func (ServerVars *Variables) Send(w http.ResponseWriter, r *http.Request) {
 	inp, err := ioutil.ReadAll(r.Body)
-	LoggerE(ServerVars, err)
+	CheckError(ServerVars, err)
+
 	var d DataAPI
 	err = json.Unmarshal(inp, &d)
-	LoggerE(ServerVars, err)
+	CheckError(ServerVars, err)
+
 	d.Channel = strings.ToLower(d.Channel) // Because channel name is not case sensitive
 	d.Key = strings.TrimSpace(d.Key)
 	SendMsgAPI(ServerVars, d, &w, time.Now())

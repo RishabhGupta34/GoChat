@@ -4,7 +4,7 @@ Chat server written in Golang. Multiple clients can connect via telnet. HTTP RES
 ## How to run the server:
 Place this whole folder inside the GOPATH
 
-	   go run server.go <config_file_full_path>
+	   go run server.go -configfile="<config_file_full_path>"
 
 Change the config.json file to change the configuration (like host, port number, log file locations) of the server.
 
@@ -68,7 +68,7 @@ Go module will install the packages required
     
  	    •	Delete User
 
-Unit testing is also implemented with 88% coverage.
+Unit testing is also implemented with 91.8% coverage.
 
 ## Limitations:
 1.	Use of local database to store log files and message history.
